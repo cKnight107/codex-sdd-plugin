@@ -1,6 +1,6 @@
 {
   "name": "spec-skills",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Codex plugin for spec-driven development, turning proposal-to-archive stages into an executable workflow.",
   "author": {
     "name": "chenkai",
@@ -29,6 +29,8 @@
       "Write"
     ],
     "websiteURL": "https://github.com/cKnight107/codex-sdd-plugin",
+    "composerIcon": "./assets/app-icon.png",
+    "logo": "./assets/app-icon.png",
     "defaultPrompt": [
       "使用 $spec-init 初始化当前仓库的规约目录和文档骨架。",
       "使用 $spec-propose 为这个需求产出 spec/tasks/log，确认前不要编码。",
