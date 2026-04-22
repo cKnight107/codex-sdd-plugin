@@ -1,0 +1,4 @@
+interface:
+  display_name: "增量实现"
+  short_description: "按小步闭环实施改动，每次只完成一个可验证切片并保持系统可用"
+  default_prompt: "使用 $incremental-implementation 按增量方式实现当前需求，把改动拆成可验证的小切片逐步落地。"

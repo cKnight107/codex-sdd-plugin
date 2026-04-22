@@ -1,0 +1,4 @@
+interface:
+  display_name: "性能优化"
+  short_description: "围绕瓶颈分析、指标目标与回归风险，系统提升页面或服务性能"
+  default_prompt: "使用 $performance-optimization 分析当前性能问题，明确指标目标、瓶颈位置和可验证的优化方案。"

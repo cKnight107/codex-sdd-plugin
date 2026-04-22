@@ -1,0 +1,4 @@
+interface:
+  display_name: "想法打磨"
+  short_description: "通过发散与收敛迭代澄清问题、方案与取舍，把模糊想法变具体"
+  default_prompt: "使用 $idea-refine 帮我把当前模糊想法逐步收敛成更具体的问题定义、方案方向和关键取舍。"

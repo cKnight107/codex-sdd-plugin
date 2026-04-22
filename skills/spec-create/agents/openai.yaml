@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec Create"
+  short_description: "按 SDD 结构化模板生成可执行的 spec.md"
+  default_prompt: "使用 $spec-create 为当前需求生成结构化 spec.md，显式写清目标、边界、验收、风险和待澄清项。"

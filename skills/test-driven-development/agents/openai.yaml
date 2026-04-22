@@ -1,0 +1,4 @@
+interface:
+  display_name: "测试驱动开发"
+  short_description: "先用失败测试定义行为，再实现、重构并用测试证明改动正确"
+  default_prompt: "使用 $test-driven-development 为当前改动先写失败测试，再实现与重构，并用测试证明行为正确。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "上下文工程"
+  short_description: "为当前任务装配合适规则、文件与背景，减少上下文噪声与遗漏"
+  default_prompt: "使用 $context-engineering 为当前任务整理最小必要上下文，明确要加载的规则、代码和背景信息。"

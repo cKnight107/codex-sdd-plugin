@@ -1,0 +1,4 @@
+interface:
+  display_name: "API 与接口设计"
+  short_description: "设计稳定 API、模块边界与类型契约，控制公开接口演进风险"
+  default_prompt: "使用 $api-and-interface-design 设计当前变更的 API 或模块接口，明确契约、边界、错误语义与兼容策略。"

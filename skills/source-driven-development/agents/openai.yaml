@@ -1,0 +1,4 @@
+interface:
+  display_name: "源文档驱动开发"
+  short_description: "以官方文档和权威来源为依据做实现决策，避免过时或猜测式写法"
+  default_prompt: "使用 $source-driven-development 基于官方文档和权威来源校验当前实现方案，避免使用过时或未经验证的模式。"

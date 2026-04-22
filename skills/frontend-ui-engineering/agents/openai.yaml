@@ -1,0 +1,4 @@
+interface:
+  display_name: "前端界面工程"
+  short_description: "构建生产级用户界面，兼顾组件结构、状态管理、响应式与可访问性"
+  default_prompt: "使用 $frontend-ui-engineering 设计或实现当前前端界面，兼顾组件结构、交互质量、响应式和可访问性。"

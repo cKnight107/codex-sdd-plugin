@@ -1,0 +1,39 @@
+{
+  "name": "spec-skills",
+  "version": "0.1.0",
+  "description": "Codex plugin for spec-driven development, turning proposal-to-archive stages into an executable workflow.",
+  "author": {
+    "name": "chenkai",
+    "url": "https://github.com/chenkai"
+  },
+  "homepage": "https://github.com/chenkai/codex-sdd-plugin",
+  "repository": "https://github.com/chenkai/codex-sdd-plugin",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "sdd",
+    "spec",
+    "workflow",
+    "plugin",
+    "skills"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Spec Skills",
+    "shortDescription": "把提案、实施、审查、修正、归档串成可执行的规约工作流。",
+    "longDescription": "Spec Skills 是面向 Codex 的 SDD 插件。它以 spec.md、tasks.md、log.md 为执行主线，把提案、规约创建、实现、验证、审查、修正、归档这些阶段串成稳定可复用的工作流。",
+    "developerName": "chenkai",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/chenkai/codex-sdd-plugin",
+    "defaultPrompt": [
+      "使用 $spec-init 初始化当前仓库的规约目录和文档骨架。",
+      "使用 $spec-propose 为这个需求产出 spec/tasks/log，确认前不要编码。",
+      "使用 $spec-apply 按已确认的 tasks 逐项实现并同步验证证据。"
+    ],
+    "brandColor": "#0F766E"
+  }
+}

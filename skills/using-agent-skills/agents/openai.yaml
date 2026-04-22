@@ -1,0 +1,4 @@
+interface:
+  display_name: "使用 Agent Skills"
+  short_description: "识别当前任务应触发的 skill，并按阶段组合合适工作流"
+  default_prompt: "使用 $using-agent-skills 帮我判断当前任务该触发哪些 skill，并给出合适的阶段化工作流。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "安全与加固"
+  short_description: "围绕输入、鉴权、数据与外部集成排查风险，并落实防护措施"
+  default_prompt: "使用 $security-and-hardening 审查当前改动的安全风险，重点检查输入、鉴权、数据处理和外部集成。"

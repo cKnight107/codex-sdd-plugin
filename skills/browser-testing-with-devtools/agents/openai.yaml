@@ -1,0 +1,4 @@
+interface:
+  display_name: "浏览器调试测试"
+  short_description: "用真实浏览器与 DevTools 检查 DOM、报错、网络、性能和视觉结果"
+  default_prompt: "使用 $browser-testing-with-devtools 在真实浏览器中检查当前页面或交互，抓取 DOM、控制台、网络和性能证据。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "规划与任务拆解"
+  short_description: "把规格或目标拆成有依赖顺序、验收标准和验证步骤的任务"
+  default_prompt: "使用 $planning-and-task-breakdown 把当前规格或需求拆成可执行任务，写清依赖、验收标准和验证方式。"

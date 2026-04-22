@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec Review"
+  short_description: "先做 spec 一致性门控，再协同 code-review、安全与性能技能完成分级审查"
+  default_prompt: "使用 $spec-review 对当前实现做两阶段审查：先逐条核对 spec 与代码一致性，PASS 后再结合 code-review、安全和性能技能输出分级结论。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec Apply"
+  short_description: "按已确认 spec/tasks/log 逐项实施任务，并协同增量实现与 TDD 技能产出证据"
+  default_prompt: "使用 $spec-apply 按已确认的 spec.md、tasks.md、log.md 逐项执行实现任务；按增量实现和 TDD 方式完成，每项都展示验证证据。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "文档与 ADR"
+  short_description: "记录架构决策、接口说明与长期上下文，方便后续维护与协作"
+  default_prompt: "使用 $documentation-and-adrs 记录当前改动涉及的架构决策、接口说明或长期背景，沉淀必要文档。"

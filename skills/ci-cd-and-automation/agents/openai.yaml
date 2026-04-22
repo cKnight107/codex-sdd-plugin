@@ -1,0 +1,4 @@
+interface:
+  display_name: "CI/CD 与自动化"
+  short_description: "搭建或调整构建、测试、发布流水线与质量门禁，保证交付自动化"
+  default_prompt: "使用 $ci-cd-and-automation 设计或调整当前项目的 CI/CD 流程，明确质量门禁、触发条件和发布策略。"

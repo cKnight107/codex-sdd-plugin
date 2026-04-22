@@ -1,0 +1,4 @@
+interface:
+  display_name: "代码审查与质量"
+  short_description: "从正确性、可读性、架构、安全、性能多轴做合并前审查"
+  default_prompt: "使用 $code-review-and-quality 审查当前改动，从正确性、可读性、架构、安全和性能给出结论与问题清单。"

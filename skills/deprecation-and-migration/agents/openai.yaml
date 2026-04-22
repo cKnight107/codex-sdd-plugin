@@ -1,0 +1,4 @@
+interface:
+  display_name: "弃用与迁移"
+  short_description: "规划旧系统、旧接口、旧功能的弃用节奏与迁移路径，控制替换风险"
+  default_prompt: "使用 $deprecation-and-migration 为当前旧功能或旧接口制定弃用与迁移方案，明确兼容期、切换路径与清理计划。"

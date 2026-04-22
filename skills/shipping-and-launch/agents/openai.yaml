@@ -1,0 +1,4 @@
+interface:
+  display_name: "发布与上线"
+  short_description: "为生产发布准备检查清单、监控、灰度策略与回滚预案"
+  default_prompt: "使用 $shipping-and-launch 为当前发布做上线准备，检查清单、监控、灰度策略和回滚预案都要覆盖。"

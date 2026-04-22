@@ -1,0 +1,4 @@
+interface:
+  display_name: "代码简化"
+  short_description: "在不改变行为的前提下压缩复杂度，提升代码清晰度与可维护性"
+  default_prompt: "使用 $code-simplification 简化当前代码实现，在不改变行为的前提下减少复杂度并提升可维护性。"
