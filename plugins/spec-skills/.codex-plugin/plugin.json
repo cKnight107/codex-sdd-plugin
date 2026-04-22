@@ -1,6 +1,6 @@
 {
   "name": "spec-skills",
-  "version": "0.2.0",
+  "version": "0.1.2",
   "description": "Codex plugin for spec-driven development, turning proposal-to-archive stages into an executable workflow.",
   "author": {
     "name": "chenkai",

@@ -2,74 +2,114 @@
 
 [中文 README](./README.md)
 
-![Spec Skills cover](./assets/spec-skills-cover-1024.png)
+![Spec Skills cover](./plugins/spec-skills/.codex-plugin/assets/spec-skills-cover-1024.png)
 
 Spec Skills is a Spec-Driven Development plugin for Codex. The goal is not to ship a loose collection of prompts, but to provide a reusable execution workflow across proposal, spec creation, implementation, review, fixing, and archiving.
 
-This repository is now a single Codex plugin:
+This repository is now structured as a standard Codex marketplace source:
 
-- the repository root is the plugin root
-- the manifest lives at `.codex-plugin/plugin.json`
-- skills live under `skills/`
-- references live under `references/`
+- the repository root is the marketplace root
+- the plugin lives in `plugins/spec-skills/`
+- the marketplace index lives in `.agents/plugins/marketplace.json`
 
-The repository no longer uses marketplace packaging and no longer depends on any marketplace index file.
+That gives consumers two supported ways to use it: add the repository as a marketplace source, or point Codex directly at the plugin directory.
 
 ## Repository Structure
 
 ```txt
 codex-sdd-plugin/
-├── .codex-plugin/plugin.json
-├── assets/
-├── references/
-├── skills/
+├── .agents/plugins/marketplace.json
+├── plugins/spec-skills/
+│   ├── .codex-plugin/plugin.json
+│   ├── skills/
+│   └── references/
 ├── README.md
 └── README.en.md
 ```
 
 Important files:
 
-- plugin manifest: [.codex-plugin/plugin.json](./.codex-plugin/plugin.json)
-- lifecycle reference: [references/full-sdd-lifecycle.md](./references/full-sdd-lifecycle.md)
+- marketplace index: [.agents/plugins/marketplace.json](./.agents/plugins/marketplace.json)
+- plugin manifest: [plugins/spec-skills/.codex-plugin/plugin.json](./plugins/spec-skills/.codex-plugin/plugin.json)
+- lifecycle reference: [plugins/spec-skills/references/full-sdd-lifecycle.md](./plugins/spec-skills/references/full-sdd-lifecycle.md)
 
 ## Using It in Codex
 
-Point Codex directly at the repository root as the plugin directory:
+### Option 1: Add It as a Marketplace Source
+
+This is now the recommended path.
+
+Local directory:
 
 ```bash
 git clone https://github.com/cKnight107/codex-sdd-plugin.git
-codex --plugin-dir /path/to/codex-sdd-plugin
+codex marketplace add /path/to/codex-sdd-plugin
 ```
 
-If Codex is already open, restart the app or start a fresh session so the new plugin layout is reloaded.
+Git repository:
+
+```bash
+codex marketplace add https://github.com/cKnight107/codex-sdd-plugin.git
+```
+
+Codex will discover `spec-skills` through the root `.agents/plugins/marketplace.json`.
+
+### Option 2: Load It as a Single Plugin Directory
+
+If you do not want to use marketplace mode, point Codex directly at the plugin directory:
+
+```bash
+git clone https://github.com/cKnight107/codex-sdd-plugin.git
+codex --plugin-dir /path/to/codex-sdd-plugin/plugins/spec-skills
+```
+
+The important detail is that the plugin directory is now `plugins/spec-skills`, not the repository root.
 
 ## Updating and Upgrading
 
-This repository now supports only the single-plugin flow, so updating is straightforward:
+These cases behave differently:
 
-```bash
-git -C /path/to/codex-sdd-plugin pull
-codex --plugin-dir /path/to/codex-sdd-plugin
-```
+### 1. Direct local plugin directory usage
 
-Or update inside the repository and then restart Codex:
+If a user points Codex at `plugins/spec-skills/`, the common flow is:
 
 ```bash
 git pull
 ```
 
-There is no marketplace cache to refresh and no separate plugin install step in `/plugins`.
+Then start a new Codex session. In practice that is usually enough to pick up the latest content.
+
+### 2. Marketplace-installed or marketplace-enabled usage
+
+Do not assume that repository changes automatically refresh the installed plugin. In the current Codex CLI, running `codex marketplace add ...` again usually only reports `already added` and does not refresh the local marketplace cache.
+
+The safer update flow is to refresh the cached marketplace repository directly:
+
+```bash
+git -C ~/.codex/.tmp/marketplaces/spec-skills-marketplace pull
+```
+
+Then restart Codex Desktop, or at least start a new session.
+
+If `pull` still does not pick up the update, do a hard refresh:
+
+```bash
+rm -rf ~/.codex/.tmp/marketplaces/spec-skills-marketplace
+codex marketplace add https://github.com/cKnight107/codex-sdd-plugin.git
+```
+
+Codex caches marketplace repositories locally, so a stale cache can keep serving an older plugin revision. Plugin authors should also bump the plugin version on every release so users can verify that the update was actually picked up.
 
 ## Release Workflow
 
 Use this minimum release process for reliable upgrades:
 
-1. update files under `skills/`, `references/`, `assets/`, or [.codex-plugin/plugin.json](./.codex-plugin/plugin.json)
-2. bump the `version` in [.codex-plugin/plugin.json](./.codex-plugin/plugin.json) for every release
+1. update files under `plugins/spec-skills/`
+2. bump the `version` in [plugins/spec-skills/.codex-plugin/plugin.json](./plugins/spec-skills/.codex-plugin/plugin.json) for every release
 3. commit and push the repository
-4. note in the release or README whether consumers need to restart Codex or reload the plugin directory
+4. note in the release or README whether consumers need to reinstall or re-enable the plugin
 
-The plugin version has been bumped to `0.2.0` to mark the breaking packaging change from marketplace layout to a single-plugin layout.
+The plugin version has been bumped to `0.1.2` in this repository, and standard icon metadata has been added so UI refreshes can pick up the plugin icon correctly.
 
 ## What the Plugin Includes
 
@@ -100,7 +140,7 @@ The plugin currently includes:
 | `spec-fix` | Fix gaps found in review or validation | `debugging-and-error-recovery`, `test-driven-development`, `documentation-and-adrs` |
 | `spec-archive` | Archive the change and preserve knowledge | `documentation-and-adrs`, `shipping-and-launch` |
 
-See [references/full-sdd-lifecycle.md](./references/full-sdd-lifecycle.md) for the full collaboration rules.
+See [plugins/spec-skills/references/full-sdd-lifecycle.md](./plugins/spec-skills/references/full-sdd-lifecycle.md) for the full collaboration rules.
 
 ## Acknowledgements
 
