@@ -1,5 +1,7 @@
 # Spec Skills
 
+[English README](./README.en.md)
+
 面向 Codex 的 Spec-Driven Development 插件。它不是把一组零散 skill 打包在一起，而是把“提案、创建规约、实施、审查、修正、归档”这些阶段串成一条可执行工作流，让 agent 围绕 `spec.md`、`tasks.md`、`log.md` 持续推进。
 
 更准确地说，`Spec Skills` 不只是一个插件集合，而是一套项目执行框架。它以仓库内的 `/docs` 目录为项目协作中枢，让 AI Coding 不再围绕临时对话推进，而是围绕文档、任务拆解、执行记录和归档证据持续运转。
