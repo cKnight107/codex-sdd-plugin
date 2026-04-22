@@ -2,6 +2,8 @@
 
 [English README](./README.en.md)
 
+![Spec Skills cover](./plugins/spec-skills/.codex-plugin/assets/spec-skills-cover-1024.png)
+
 面向 Codex 的 Spec-Driven Development 插件，核心目标不是堆一组 prompt，而是把“提案、规约、实施、审查、修正、归档”串成一条可复用、可验证、可持续推进的执行链路。
 
 这次仓库结构已经调整为标准 marketplace 源：

@@ -2,6 +2,8 @@
 
 [中文 README](./README.md)
 
+![Spec Skills cover](./plugins/spec-skills/.codex-plugin/assets/spec-skills-cover-1024.png)
+
 Spec Skills is a Spec-Driven Development plugin for Codex. The goal is not to ship a loose collection of prompts, but to provide a reusable execution workflow across proposal, spec creation, implementation, review, fixing, and archiving.
 
 This repository is now structured as a standard Codex marketplace source:
