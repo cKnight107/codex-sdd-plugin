@@ -81,14 +81,24 @@ git pull
 
 ### 2. 你是通过 marketplace 安装/启用插件
 
-这时不能假设 “仓库更新 = 本地已安装插件自动升级”。更稳妥的使用方式是：
+这时不能假设 “仓库更新 = 本地已安装插件自动升级”。在当前这版 Codex CLI 里，`codex marketplace add ...` 在 marketplace 已存在时通常只会提示 `already added`，不会主动刷新本地缓存。
 
-1. 先拉取仓库最新内容
-2. 让 Codex 重新读取 marketplace 源
-3. 必要时重新安装或重新启用该插件
-4. 重新开始一个新会话验证已加载新版本
+更稳妥的更新方式是直接刷新本地 marketplace 缓存仓库：
 
-原因是 Codex 可能会把插件内容放进本地缓存，并按版本目录管理；如果版本号不变，用户和工具都很难判断这次更新是否应该刷新。
+```bash
+git -C ~/.codex/.tmp/marketplaces/spec-skills-marketplace pull
+```
+
+然后重启 Codex Desktop，或至少重新开始一个新会话。
+
+如果执行 `pull` 后仍未生效，可以走硬刷新：
+
+```bash
+rm -rf ~/.codex/.tmp/marketplaces/spec-skills-marketplace
+codex marketplace add https://github.com/cKnight107/codex-sdd-plugin.git
+```
+
+原因是 Codex 会把 marketplace 仓库缓存到本地目录；如果这个缓存没有更新，界面看到的仍然是旧版本。插件作者也应在每次发布时递增版本号，帮助用户确认本次更新已经生效。
 
 ## 发布约定
 
@@ -99,7 +109,7 @@ git pull
 3. 提交并 push 到远端仓库。
 4. 在 README 或 release note 里说明本次更新是否需要重新安装/重新启用。
 
-当前版本已提升到 `0.1.1`，就是为了给后续升级建立一个明确的版本边界。
+当前版本已提升到 `0.1.2`，并补充了标准图标元数据，便于后续升级和界面刷新后正确显示插件图标。
 
 ## 插件内容
 

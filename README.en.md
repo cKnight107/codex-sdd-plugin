@@ -81,14 +81,24 @@ Then start a new Codex session. In practice that is usually enough to pick up th
 
 ### 2. Marketplace-installed or marketplace-enabled usage
 
-Do not assume that repository changes automatically refresh the installed plugin. A safer flow is:
+Do not assume that repository changes automatically refresh the installed plugin. In the current Codex CLI, running `codex marketplace add ...` again usually only reports `already added` and does not refresh the local marketplace cache.
 
-1. pull the latest repository changes
-2. make Codex re-read the marketplace source
-3. reinstall or re-enable the plugin if needed
-4. start a new session to verify the new version is loaded
+The safer update flow is to refresh the cached marketplace repository directly:
 
-Codex may cache plugins locally in versioned directories, so keeping the same plugin version makes upgrades ambiguous for both users and tooling.
+```bash
+git -C ~/.codex/.tmp/marketplaces/spec-skills-marketplace pull
+```
+
+Then restart Codex Desktop, or at least start a new session.
+
+If `pull` still does not pick up the update, do a hard refresh:
+
+```bash
+rm -rf ~/.codex/.tmp/marketplaces/spec-skills-marketplace
+codex marketplace add https://github.com/cKnight107/codex-sdd-plugin.git
+```
+
+Codex caches marketplace repositories locally, so a stale cache can keep serving an older plugin revision. Plugin authors should also bump the plugin version on every release so users can verify that the update was actually picked up.
 
 ## Release Workflow
 
@@ -99,7 +109,7 @@ Use this minimum release process for reliable upgrades:
 3. commit and push the repository
 4. note in the release or README whether consumers need to reinstall or re-enable the plugin
 
-The plugin version has been bumped to `0.1.1` in this repository to establish a clean upgrade boundary.
+The plugin version has been bumped to `0.1.2` in this repository, and standard icon metadata has been added so UI refreshes can pick up the plugin icon correctly.
 
 ## What the Plugin Includes
 
