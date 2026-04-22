@@ -2,97 +2,110 @@
 
 [中文 README](./README.md)
 
-Spec Skills is a Spec-Driven Development plugin for Codex. It is not just a bundle of isolated skills. It turns proposal, spec creation, implementation, review, fixing, and archiving into one executable workflow, so the agent can keep moving around `spec.md`, `tasks.md`, and `log.md`.
+Spec Skills is a Spec-Driven Development plugin for Codex. The goal is not to ship a loose collection of prompts, but to provide a reusable execution workflow across proposal, spec creation, implementation, review, fixing, and archiving.
 
-More precisely, `Spec Skills` is not only a plugin collection. It is a project execution framework. It uses the repository's `/docs` directory as the collaboration center, so AI coding is driven by documents, task breakdowns, execution logs, and archive evidence instead of short-lived chat context.
+This repository is now structured as a standard Codex marketplace source:
 
-## Why Open Source This Plugin
+- the repository root is the marketplace root
+- the plugin lives in `plugins/spec-skills/`
+- the marketplace index lives in `.agents/plugins/marketplace.json`
 
-This repository is not meant to be a prompt demo. It is meant to be a reusable Codex plugin directory that others can directly adopt:
-
-- Ready to load into Codex
-- Includes stage-oriented `spec-*` skills
-- Includes foundational engineering skills for implementation, testing, review, and delivery
-- Organizes requirements, proposals, tasks, logs, and archives around `/docs`
-- Connects requirements, implementation, verification, and archiving through one document flow
-
-If you want an agent to clarify requirements before coding, implement work task by task, and leave traceable evidence at the end, this plugin is designed for that workflow.
-
-## What It Really Is
-
-The core of `Spec Skills` is not "a few good prompts." It is "a stable project execution framework for AI coding."
-
-The key constraints of this framework are:
-
-- Use `/docs` as the execution backbone instead of scattering critical context across chat history
-- Use `docs/changes/` to hold change proposals, specs, task breakdowns, and execution logs
-- Use `docs/knowledge/` and archive content to preserve long-term knowledge, decisions, and constraints
-- Keep the agent grounded in project documentation rather than generating code in isolation
-
-So the focus of this plugin is not a one-off coding action. The focus is helping AI work continuously inside a real project with a document-driven process.
-
-## Relationship to `agent-skills`
-
-This project evolved from [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), and continues to build on its approach of turning engineering practices into executable skills.
-
-`agent-skills` provides a general-purpose engineering skill system across development phases and agent types. `Spec Skills` goes further by orchestrating those lower-level capabilities into a Spec-Driven Development lifecycle plugin tailored for Codex.
-
-## Key Differences from `agent-skills`
-
-| Dimension | `agent-skills` | `Spec Skills` |
-| --- | --- | --- |
-| Core positioning | General engineering skill collection | SDD lifecycle plugin for Codex |
-| Center of gravity | Engineering method inside each skill | Stage collaboration driven by `/docs`, `spec.md`, `tasks.md`, and `log.md` |
-| Working style | Trigger the right skill per task | Explicit lifecycle stages such as `spec-init`, `spec-propose`, `spec-apply`, `spec-review`, `spec-fix`, and `spec-archive` |
-| Deliverables | Skill methodology | Spec documents, execution records, verification evidence, and archive actions |
-| Process control | Emphasis on engineering practice | Emphasis on stage gates: propose first, implement second, review next, archive last |
-| Plugin goal | Broadly applicable to many agents and tools | Focused on a document-driven Codex workflow |
-
-In short, `agent-skills` is closer to a foundational capability layer, while `Spec Skills` is a production workflow built on top of that layer.
-
-## What the Plugin Includes
-
-This repository currently contains:
-
-- `7` lifecycle-stage skills: `spec-init`, `spec-propose`, `spec-create`, `spec-apply`, `spec-review`, `spec-fix`, `spec-archive`
-- `21` foundational engineering skills for design, implementation, verification, review, and delivery
-- `references/full-sdd-lifecycle.md`, which defines how stage skills collaborate with foundational skills
+That gives consumers two supported ways to use it: add the repository as a marketplace source, or point Codex directly at the plugin directory.
 
 ## Repository Structure
 
 ```txt
 codex-sdd-plugin/
-├── .codex-plugin/plugin.json
-├── skills/
-│   ├── spec-init/
-│   ├── spec-propose/
-│   ├── spec-create/
-│   ├── spec-apply/
-│   ├── spec-review/
-│   ├── spec-fix/
-│   ├── spec-archive/
-│   └── ...
-├── references/
-│   └── full-sdd-lifecycle.md
-└── README.md
+├── .agents/plugins/marketplace.json
+├── plugins/spec-skills/
+│   ├── .codex-plugin/plugin.json
+│   ├── skills/
+│   └── references/
+├── README.md
+└── README.en.md
 ```
+
+Important files:
+
+- marketplace index: [.agents/plugins/marketplace.json](./.agents/plugins/marketplace.json)
+- plugin manifest: [plugins/spec-skills/.codex-plugin/plugin.json](./plugins/spec-skills/.codex-plugin/plugin.json)
+- lifecycle reference: [plugins/spec-skills/references/full-sdd-lifecycle.md](./plugins/spec-skills/references/full-sdd-lifecycle.md)
 
 ## Using It in Codex
 
-Load this repository as a local plugin directory.
+### Option 1: Add It as a Marketplace Source
 
-### Option 1: Clone Locally
+This is now the recommended path.
+
+Local directory:
 
 ```bash
 git clone https://github.com/cKnight107/codex-sdd-plugin.git
-codex --plugin-dir /path/to/codex-sdd-plugin
+codex marketplace add /path/to/codex-sdd-plugin
 ```
 
-### Option 2: Point Codex to This Directory
+Git repository:
 
-The plugin manifest is located at [`./.codex-plugin/plugin.json`](./.codex-plugin/plugin.json).
+```bash
+codex marketplace add https://github.com/cKnight107/codex-sdd-plugin.git
+```
 
-If your Codex setup supports directory-based plugins, pointing it to the repository root is enough.
+Codex will discover `spec-skills` through the root `.agents/plugins/marketplace.json`.
+
+### Option 2: Load It as a Single Plugin Directory
+
+If you do not want to use marketplace mode, point Codex directly at the plugin directory:
+
+```bash
+git clone https://github.com/cKnight107/codex-sdd-plugin.git
+codex --plugin-dir /path/to/codex-sdd-plugin/plugins/spec-skills
+```
+
+The important detail is that the plugin directory is now `plugins/spec-skills`, not the repository root.
+
+## Updating and Upgrading
+
+These cases behave differently:
+
+### 1. Direct local plugin directory usage
+
+If a user points Codex at `plugins/spec-skills/`, the common flow is:
+
+```bash
+git pull
+```
+
+Then start a new Codex session. In practice that is usually enough to pick up the latest content.
+
+### 2. Marketplace-installed or marketplace-enabled usage
+
+Do not assume that repository changes automatically refresh the installed plugin. A safer flow is:
+
+1. pull the latest repository changes
+2. make Codex re-read the marketplace source
+3. reinstall or re-enable the plugin if needed
+4. start a new session to verify the new version is loaded
+
+Codex may cache plugins locally in versioned directories, so keeping the same plugin version makes upgrades ambiguous for both users and tooling.
+
+## Release Workflow
+
+Use this minimum release process for reliable upgrades:
+
+1. update files under `plugins/spec-skills/`
+2. bump the `version` in [plugins/spec-skills/.codex-plugin/plugin.json](./plugins/spec-skills/.codex-plugin/plugin.json) for every release
+3. commit and push the repository
+4. note in the release or README whether consumers need to reinstall or re-enable the plugin
+
+The plugin version has been bumped to `0.1.1` in this repository to establish a clean upgrade boundary.
+
+## What the Plugin Includes
+
+The plugin currently includes:
+
+- `7` lifecycle-stage skills: `spec-init`, `spec-propose`, `spec-create`, `spec-apply`, `spec-review`, `spec-fix`, `spec-archive`
+- `21` foundational engineering skills for design, implementation, verification, review, and delivery
+- one full lifecycle reference document for stage coordination
 
 ## Suggested Starting Prompts
 
@@ -115,20 +128,11 @@ If your Codex setup supports directory-based plugins, pointing it to the reposit
 | `spec-fix` | Fix gaps found in review or validation | `debugging-and-error-recovery`, `test-driven-development`, `documentation-and-adrs` |
 | `spec-archive` | Archive the change and preserve knowledge | `documentation-and-adrs`, `shipping-and-launch` |
 
-See [references/full-sdd-lifecycle.md](./references/full-sdd-lifecycle.md) for the full collaboration rules.
-
-## Design Principles
-
-- Orchestration first: stage skills handle gates and state transitions, foundational skills handle engineering methods
-- Document driven: `spec.md`, `tasks.md`, and `log.md` are the execution backbone, not side artifacts
-- Minimal duplication: shared lifecycle logic lives in references instead of being repeated in every skill
-- Evidence loop: implementation, testing, review, fixing, and archiving all require verifiable evidence
+See [plugins/spec-skills/references/full-sdd-lifecycle.md](./plugins/spec-skills/references/full-sdd-lifecycle.md) for the full collaboration rules.
 
 ## Acknowledgements
 
-Thanks to [Addy Osmani](https://github.com/addyosmani) and the contributors of [agent-skills](https://github.com/addyosmani/agent-skills). This repository inherits the core idea of turning senior engineering workflows into executable skills, and then narrows that idea into a Codex-oriented Spec-Driven Development workflow.
-
-This project is not a simple mirror of `agent-skills`, and it is not trying to replace it. It is better understood as a derivative implementation built on top of its methodology, with a stronger focus on document-driven project execution.
+Thanks to [Addy Osmani](https://github.com/addyosmani) and the contributors of [agent-skills](https://github.com/addyosmani/agent-skills). This repository builds on the idea of turning engineering practices into executable skills, then narrows that idea into a Codex-oriented, document-driven workflow.
 
 ## License
 

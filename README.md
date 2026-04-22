@@ -2,97 +2,110 @@
 
 [English README](./README.en.md)
 
-面向 Codex 的 Spec-Driven Development 插件。它不是把一组零散 skill 打包在一起，而是把“提案、创建规约、实施、审查、修正、归档”这些阶段串成一条可执行工作流，让 agent 围绕 `spec.md`、`tasks.md`、`log.md` 持续推进。
+面向 Codex 的 Spec-Driven Development 插件，核心目标不是堆一组 prompt，而是把“提案、规约、实施、审查、修正、归档”串成一条可复用、可验证、可持续推进的执行链路。
 
-更准确地说，`Spec Skills` 不只是一个插件集合，而是一套项目执行框架。它以仓库内的 `/docs` 目录为项目协作中枢，让 AI Coding 不再围绕临时对话推进，而是围绕文档、任务拆解、执行记录和归档证据持续运转。
+这次仓库结构已经调整为标准 marketplace 源：
 
-## 为什么开源这个插件
+- 根目录是 marketplace
+- 插件实体位于 `plugins/spec-skills/`
+- marketplace 索引位于 `.agents/plugins/marketplace.json`
 
-这个仓库的目标不是演示一套 prompt，而是提供一套别人可以直接复用的 Codex 插件目录：
+这意味着别人既可以把这个仓库当作 marketplace 源接入，也可以直接把插件目录当作单插件目录加载。
 
-- 可直接加载到 Codex
-- 自带阶段化 `spec-*` skill
-- 内置支撑实现、测试、审查、发布的基础工程 skill
-- 以 `/docs` 为中心组织需求、方案、任务、日志和归档
-- 用统一文档载体把需求、实现、验证和归档串起来
-
-如果你希望 agent 在编码前先完成需求澄清，在编码中按 task 推进，在收尾时留下可追溯证据，这个插件就是为这类流程设计的。
-
-## 它本质上是什么
-
-`Spec Skills` 的核心不是“多几个好用的 prompt”，而是“给 AI Coding 一套稳定的项目执行框架”。
-
-这套框架的关键约束是：
-
-- 以 `/docs` 作为执行主线，而不是把关键上下文散落在聊天记录里
-- 用 `docs/changes/` 承载需求变更、方案设计、任务拆解和执行日志
-- 用 `docs/knowledge/` 与归档内容沉淀长期有效的经验、决策和约束
-- 让 agent 的编码行为始终回到文档上下文，而不是脱离项目状态单点生成代码
-
-因此，这个插件强调的不是一次性完成某个 coding 动作，而是让 AI 在一个真实项目里按文档驱动方式持续工作。
-
-## 它与 `agent-skills` 的关系
-
-本项目由 [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) 演变而来，并在其工程化 skill 设计思路基础上继续发展。
-
-`agent-skills` 提供的是一套通用、跨开发阶段、跨 agent 的工程 skill 体系；`Spec Skills` 则进一步把这些底层能力编排成一套面向 Codex 的 Spec-Driven Development 生命周期插件。
-
-## 与 `agent-skills` 的关键区别
-
-| 维度 | `agent-skills` | `Spec Skills` |
-| --- | --- | --- |
-| 核心定位 | 通用工程 skill 集合 | 面向 Codex 的 SDD 生命周期插件 |
-| 关注中心 | 单个 skill 的工程方法 | `/docs` 下 `spec.md` / `tasks.md` / `log.md` 驱动的阶段协同 |
-| 工作方式 | 按任务触发合适 skill | 明确区分 `spec-init`、`spec-propose`、`spec-apply`、`spec-review`、`spec-fix`、`spec-archive` |
-| 交付物 | 以 skill 方法论为主 | 强制绑定规约文档、执行记录、验证证据和归档动作 |
-| 流程门控 | 强调工程实践 | 强调“先提案、后实现、再审查、再归档”的阶段门控 |
-| 插件目标 | 广泛适配不同 agent/工具 | 优先服务 Codex 中的规约驱动研发闭环 |
-
-换句话说，`agent-skills` 更像基础能力层，`Spec Skills` 更像把这些能力编排成一条 SDD 生产线。
-
-## 插件内容
-
-当前仓库包含：
-
-- `7` 个阶段 skill：`spec-init`、`spec-propose`、`spec-create`、`spec-apply`、`spec-review`、`spec-fix`、`spec-archive`
-- `21` 个基础工程 skill，用于支撑设计、实现、验证、审查和交付
-- `references/full-sdd-lifecycle.md`，用于描述阶段 skill 与基础 skill 的协同规则
-
-## 目录结构
+## 仓库结构
 
 ```txt
 codex-sdd-plugin/
-├── .codex-plugin/plugin.json
-├── skills/
-│   ├── spec-init/
-│   ├── spec-propose/
-│   ├── spec-create/
-│   ├── spec-apply/
-│   ├── spec-review/
-│   ├── spec-fix/
-│   ├── spec-archive/
-│   └── ...
-├── references/
-│   └── full-sdd-lifecycle.md
-└── README.md
+├── .agents/plugins/marketplace.json
+├── plugins/spec-skills/
+│   ├── .codex-plugin/plugin.json
+│   ├── skills/
+│   └── references/
+├── README.md
+└── README.en.md
 ```
+
+关键文件：
+
+- marketplace 索引：[.agents/plugins/marketplace.json](./.agents/plugins/marketplace.json)
+- 插件 manifest：[plugins/spec-skills/.codex-plugin/plugin.json](./plugins/spec-skills/.codex-plugin/plugin.json)
+- 生命周期参考：[plugins/spec-skills/references/full-sdd-lifecycle.md](./plugins/spec-skills/references/full-sdd-lifecycle.md)
 
 ## 在 Codex 中使用
 
-把这个仓库作为本地插件目录加载即可。
+### 方式一：作为 marketplace 源接入
 
-### 方式一：本地目录
+本仓库现在推荐用这种方式。
+
+本地目录：
 
 ```bash
 git clone https://github.com/cKnight107/codex-sdd-plugin.git
-codex --plugin-dir /path/to/codex-sdd-plugin
+codex marketplace add /path/to/codex-sdd-plugin
 ```
 
-### 方式二：直接指向当前目录
+Git 仓库：
 
-插件 manifest 位于 [`./.codex-plugin/plugin.json`](./.codex-plugin/plugin.json)。
+```bash
+codex marketplace add https://github.com/cKnight107/codex-sdd-plugin.git
+```
 
-只要 Codex 支持按目录加载插件，直接指向本仓库根目录即可。
+接入后，Codex 会从根目录的 `.agents/plugins/marketplace.json` 发现 `spec-skills` 插件。
+
+### 方式二：直接作为单插件目录加载
+
+如果你不想走 marketplace，也可以直接指向插件目录：
+
+```bash
+git clone https://github.com/cKnight107/codex-sdd-plugin.git
+codex --plugin-dir /path/to/codex-sdd-plugin/plugins/spec-skills
+```
+
+注意这里不再是仓库根目录，而是 `plugins/spec-skills/`。
+
+## 更新与升级
+
+这里要区分两种情况：
+
+### 1. 你是直接读取本地仓库目录
+
+如果你是用 `--plugin-dir /path/to/.../plugins/spec-skills` 这种方式，通常流程是：
+
+```bash
+git pull
+```
+
+然后重新打开新的 Codex 会话，通常就会用到最新内容。
+
+### 2. 你是通过 marketplace 安装/启用插件
+
+这时不能假设 “仓库更新 = 本地已安装插件自动升级”。更稳妥的使用方式是：
+
+1. 先拉取仓库最新内容
+2. 让 Codex 重新读取 marketplace 源
+3. 必要时重新安装或重新启用该插件
+4. 重新开始一个新会话验证已加载新版本
+
+原因是 Codex 可能会把插件内容放进本地缓存，并按版本目录管理；如果版本号不变，用户和工具都很难判断这次更新是否应该刷新。
+
+## 发布约定
+
+为了让别人稳定拿到更新，建议按下面的最小发布流程执行：
+
+1. 修改 `plugins/spec-skills/` 下的技能、引用文档或 manifest。
+2. 每次发布都递增 [plugins/spec-skills/.codex-plugin/plugin.json](./plugins/spec-skills/.codex-plugin/plugin.json) 里的 `version`。
+3. 提交并 push 到远端仓库。
+4. 在 README 或 release note 里说明本次更新是否需要重新安装/重新启用。
+
+当前版本已提升到 `0.1.1`，就是为了给后续升级建立一个明确的版本边界。
+
+## 插件内容
+
+当前插件包含：
+
+- `7` 个阶段 skill：`spec-init`、`spec-propose`、`spec-create`、`spec-apply`、`spec-review`、`spec-fix`、`spec-archive`
+- `21` 个基础工程 skill，用于支撑设计、实现、验证、审查和交付
+- 一份完整生命周期协同参考文档
 
 ## 推荐起手方式
 
@@ -115,20 +128,11 @@ codex --plugin-dir /path/to/codex-sdd-plugin
 | `spec-fix` | 基于 findings 或失败验证修正 | `debugging-and-error-recovery`, `test-driven-development`, `documentation-and-adrs` |
 | `spec-archive` | 知识沉淀与归档收尾 | `documentation-and-adrs`, `shipping-and-launch` |
 
-完整协同规则见 [references/full-sdd-lifecycle.md](./references/full-sdd-lifecycle.md)。
-
-## 设计原则
-
-- 编排优先：阶段 skill 负责门控与状态推进，基础 skill 负责工程方法
-- 文档驱动：`spec.md`、`tasks.md`、`log.md` 是执行主线，而不是附属产物
-- 最小重复：共性流程放进共享 references，避免每个 skill 各写一套生命周期叙事
-- 证据闭环：实现、测试、审查、修正、归档都要求可验证证据
+完整协同规则见 [plugins/spec-skills/references/full-sdd-lifecycle.md](./plugins/spec-skills/references/full-sdd-lifecycle.md)。
 
 ## 致谢
 
 感谢 [Addy Osmani](https://github.com/addyosmani) 及 [agent-skills](https://github.com/addyosmani/agent-skills) 项目贡献者。这个仓库继承了其“把资深工程师流程沉淀为可执行 skill”的核心思想，并在此基础上把能力进一步收敛到 Codex 中的 Spec-Driven Development 场景。
-
-本项目不是对 `agent-skills` 的简单镜像，也不试图替代它；它更像是一个建立在其方法论之上的、面向规约驱动研发流程的派生实现。
 
 ## 许可证
 
