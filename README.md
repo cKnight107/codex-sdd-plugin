@@ -82,7 +82,7 @@ codex-sdd-plugin/
 ### 方式一：本地目录
 
 ```bash
-git clone https://github.com/chenkai/codex-sdd-plugin.git
+git clone https://github.com/cKnight107/codex-sdd-plugin.git
 codex --plugin-dir /path/to/codex-sdd-plugin
 ```
 

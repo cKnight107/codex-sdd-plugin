@@ -4,10 +4,10 @@
   "description": "Codex plugin for spec-driven development, turning proposal-to-archive stages into an executable workflow.",
   "author": {
     "name": "chenkai",
-    "url": "https://github.com/chenkai"
+    "url": "https://github.com/cKnight107"
   },
-  "homepage": "https://github.com/chenkai/codex-sdd-plugin",
-  "repository": "https://github.com/chenkai/codex-sdd-plugin",
+  "homepage": "https://github.com/cKnight107/codex-sdd-plugin",
+  "repository": "https://github.com/cKnight107/codex-sdd-plugin",
   "license": "MIT",
   "keywords": [
     "codex",
@@ -28,7 +28,7 @@
       "Interactive",
       "Write"
     ],
-    "websiteURL": "https://github.com/chenkai/codex-sdd-plugin",
+    "websiteURL": "https://github.com/cKnight107/codex-sdd-plugin",
     "defaultPrompt": [
       "使用 $spec-init 初始化当前仓库的规约目录和文档骨架。",
       "使用 $spec-propose 为这个需求产出 spec/tasks/log，确认前不要编码。",
